@@ -1,0 +1,84 @@
+<div class="container-fluid p-5" id="calendar">
+    <div class="row align-items-center align-content-center">
+    <%
+    i = 0
+    for day_index in 0..13 do
+    i+=1
+    %>
+        <div class="col col-calendar">
+            <div class="card card-calendar selectable" id="day-<%= i %>">
+                <div class="card-header"><%= (Date.today + i-1).strftime("%a %-d.%-m") %></div>
+                <div class="card-body">
+                    <% for meal in ['lunch', 'dinner'] %>
+                    <% if @days[day_index][meal] == nil %>
+                    <div class="half empty <%= meal %>">
+                        <div class="add">
+                            <a href="/calendar/add/<%= @days[day_index]['id'] %>?meal=<%= meal %>" class="icon-btn clickable">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <% elsif @days[day_index][meal] == "homemade" %>
+                    <% else @days[day_index][meal] == nil %>
+                    <div
+                        class="half <%= meal %>"
+                        style="background-image: url(<%= @responses[@days[day_index]['id']][meal]['image'] %>)"
+                        data-recipe="<%= @responses[@days[day_index]['id']][meal]['id'] %>-<%= meal %>">
+                        <div class="half-overlay"></div>
+                        <div class="content">
+                            <h5 class="text-white"><%= meal.capitalize() %></h6>
+                            <hr>
+                            <h6 class="text-white"><%= @responses[@days[day_index]['id']][meal]['title'] %></h6>
+                            <div class="icons-calendar text-white">
+                                <a href="/calendar/<%= @days[day_index]['id'] %>?meal=<%= meal %>">
+                                <i class="icon-btn clickable far fa-eye" ></i>
+                                </a><a href="/calendar/edit/<%= @days[day_index]['id'] %>?meal=<%= meal %>">
+                                <i class="icon-btn clickable fas fa-pen" ></i>
+                                </a><a href="/calendar/delete/<%= @days[day_index]['id'] %>?meal=<%= meal %>" onclick="return confirm('Are you sure?')">
+                                <i class="icon-btn clickable fas fa-trash" ></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <% end %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+    </div>
+</div>
+
+<% case params['action'] %>
+<% when 'show' %>
+<%= render 'modal-show' %>
+
+<% when 'add' %>
+<%= render 'modal-add' %>
+
+<% when 'edit' %>
+<% end %>
+
+<script>
+function getPosition(element) {
+    var xPosition = 0;
+    var yPosition = 0;
+
+    while(element) {
+        xPosition += (element.offsetLeft - element.scrollLeft + element.clientLeft);
+        yPosition += (element.offsetTop - element.scrollTop + element.clientTop);
+        element = element.offsetParent;
+    }
+
+    return { x: xPosition, y: yPosition };
+}
+
+selector = "[data-recipe='<%= params['id'] %>-<%=params['meal']%>']"
+pos = getPosition($(selector)[0])
+width = $(selector).width()
+height = $(selector).height()
+$("#modal").appendTo("body").css("top", pos.y).css("left", pos.x).css("width", width).css("height", height)
+setTimeout(function () {
+	$("#modal").addClass("modal-active p-5")
+}, 0)
+</script>

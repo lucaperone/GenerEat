@@ -1,0 +1,32 @@
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+
+.icon-btn {
+	width: 36px;
+	height: 36px;
+	padding: 9px;
+	background-color: rgba(0, 0, 0, 0.06);
+	border-radius: 100px;
+	display: block;
+	color: $body-color;
+	text-align: center;
+	i {
+		vertical-align: text-top;
+	}
+	&.clickable {
+		cursor: pointer;
+		transition: background-color 0.2s ease-out;
+		&:hover {
+			color: $body-color;
+			background-color: rgba(0, 0, 0, 0.12);
+		}
+	}
+}
+.text-white .icon-btn {
+	background-color: rgba(255, 255, 255, 0.4);
+	color: white;
+	&.clickable:hover {
+		color: white;
+		background-color: rgba(255, 255, 255, 0.7);
+	}
+}

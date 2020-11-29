@@ -1,0 +1,2 @@
+class PlannedDay < ApplicationRecord
+end

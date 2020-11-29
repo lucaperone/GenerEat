@@ -1,0 +1,83 @@
+ 
+<% if @response != nil %>
+
+<%
+require 'uri'
+def get_host_without_www(url)
+  url = "http://#{url}" if URI.parse(url).scheme.nil?
+  host = URI.parse(url).host.downcase
+  host.start_with?('www.') ? host[4..-1] : host
+  return host
+end
+%>
+
+<div id="modal">
+    <div class="w-100 h-100 bg-light card shadow container p-5">
+        <a id="modal-close" class="icon-btn clickable" onclick="$('#modal').css('display', 'none')"><i class="fas fa-times"></i></a>
+        <% if @response['status'] == 'failure' %>
+        <div class="row">
+            <div class="col-12">
+                <h3>Error - <%= @response['message'] %></h3>
+            </div>
+        </div>
+        <% else %>
+        <div class="row">
+            <div class="col-12 tags-col">
+                <h3 class="mb-0"><%= @response['title'] %></h3>
+                <a class="d-block mb-3 text-muted" href="<%= @response['sourceUrl'] %>" target="_blank"><i class="fas fa-link fa-sm"></i>&nbsp;&nbsp;<%= get_host_without_www(@response['sourceUrl']) %></a>
+                <p>
+                    <i class="fas fa-stopwatch"></i>&nbsp;&nbsp;<%= @response['readyInMinutes'] %>'
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-user"></i>&nbsp;&nbsp;<%= @response['servings'].to_s %>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <% for i in 0..(@response['pricePerServing'].to_i / 200) %>
+                    <i class="fas fa-dollar-sign"></i>
+                    <% end %>
+                </p>
+                <% if @response['vegetarian'] %>
+                <span class='tag'>vegetarian</span>
+                <% end %>
+                <% if @response['vegan'] %>
+                <span class='tag'>vegan</span>
+                <% end %>
+                <% if @response['glutenFree'] %>
+                <span class='tag'>gluten free</span>
+                <% end %>
+                <% if @response['dairyFree'] %>
+                <span class='tag'>dairy free</span>
+                <% end %>
+                </div>
+                <div class="col-6 ingredients-col">
+                <h4 class="mt-3">Ingredients</h4>
+                <div class="ingredients">
+                    <table class="mt-3">
+                    <% for ingredient in @response['extendedIngredients'] do %>
+                    <tr>
+                        <td>
+                        <% if ingredient['measures']['metric']['unitShort'] == "g" || ingredient['measures']['metric']['unitShort'] == "ml" %>
+                        <%= ((ingredient['measures']['metric']['amount']/5.0).round * 5).to_s %>
+                        <% else %>
+                        <%= ingredient['measures']['metric']['amount'].to_s %>
+                        <% end %>
+                        <%= ingredient['measures']['metric']['unitShort'].downcase %>
+                        </td><td>
+                        <%= ingredient['originalName'] %>
+                        </td>
+                    </tr>
+                    <% end %>
+                    </table>
+                </div>
+            </div>
+            <div class="col-6 instructions-col">
+                <h4 class="mt-3">Instructions</h4>
+                <p class="text-justify mt-3"><%= @response['instructions'] %></p>
+            </div>
+        </div>
+        <div class="row img-row">
+            <div class="col-12 img-col">
+                <div class="img-container" style="background-image: url('<%= @response['image'] %>')">
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>
+<% end %>

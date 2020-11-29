@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  noon: MyString
+  evening: MyString
+  date: 2020-11-28
+
+two:
+  noon: MyString
+  evening: MyString
+  date: 2020-11-28

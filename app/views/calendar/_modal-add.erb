@@ -1,0 +1,93 @@
+ 
+<div id="modal">
+    <div class="w-100 h-100 bg-light card shadow container p-5">
+        <a id="modal-close" class="icon-btn clickable" onclick="$('#modal').css('display', 'none')"><i class="fas fa-times"></i></a>
+        <div class="row">
+            <div class="col-12 tags-col">
+                <h3>GenerEat a meal for that day</h3>
+                <form class="mt-5" action="/calendar/new/<%= params['id'] %>">
+
+                    <fieldset class="mb-2">
+                    <h6 class="mb-2"><b>Diet</b></h6>
+                    <label class="control control--radio" for="pescetarian">Pescetarian
+                    <input type="radio" name="fields[diet]" id="pescetarian">
+                    <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--radio" for="lacto-vege">Lacto vegetarian
+                    <input type="radio" name="fields[diet]" id="lacto-vege">
+                    <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--radio" for="ovo-vege">Ovo vegetarian
+                    <input type="radio" name="fields[diet]" id="ovo-vege">
+                    <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--radio" for="vegan">Vegan
+                    <input type="radio" name="fields[diet]" id="vegan">
+                    <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--radio" for="vegetarian">Vegetarian
+                    <input type="radio" name="fields[diet]" id="vegetarian">
+                    <div class="control__indicator"></div>
+                    </label>
+                    </fieldset>
+
+                    <fieldset class="mb-2">
+                    <h6 class="mb-2"><b>Intolerances</b></h6>
+                    <label class="control control--checkbox" for="dairy">Dairy<br>
+                    <input type="checkbox" name="fields[intolerances][]" value="dairy" id="dairy">
+                    <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox" for="egg">Egg<br>
+                    <input type="checkbox" name="fields[intolerances][]" value="egg" id="egg">
+                    <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox" for="gluten">Gluten<br>
+                    <input type="checkbox" name="fields[intolerances][]" value="gluten" id="gluten">
+                    <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox" for="peanut">Peanut<br>
+                    <input type="checkbox" name="fields[intolerances][]" value="peanut" id="peanut">
+                    <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox" for="sesame">Sesame<br>
+                    <input type="checkbox" name="fields[intolerances][]" value="sesame" id="sesame">
+                    <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox" for="seafood">Seafood<br>
+                    <input type="checkbox" name="fields[intolerances][]" value="seafood" id="seafood">
+                    <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox" for="shellfish">Shellfish<br>
+                    <input type="checkbox" name="fields[intolerances][]" value="shellfish" id="shellfish">
+                    <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox" for="soy">Soy<br>
+                    <input type="checkbox" name="fields[intolerances][]" value="soy" id="soy">
+                    <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox" for="sulfite">Sulfite<br>
+                    <input type="checkbox" name="fields[intolerances][]" value="sulfite" id="sulfite">
+                    <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox" for="tree-nut">Tree nut<br>
+                    <input type="checkbox" name="fields[intolerances][]" value="tree" id="tree-nut">
+                    <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox" for="wheat">Wheat<br>
+                    <input type="checkbox" name="fields[intolerances][]" value="wheat" id="wheat">
+                    <div class="control__indicator"></div>
+                    </label>
+                    </fieldset>
+
+                    <label for="excludeIngredients" class="inp">
+                    <input type="text" name="fields[exclude]" id="excludeIngredients" placeholder=" ">
+                    <span class="label">Exclude ingredients</span>
+                    <span class="focus-bg"></span>
+                    </label>
+
+                    <input class="btn btn-primary d-block mt-3" type="submit" value="GenerEat">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
